@@ -10,6 +10,8 @@ namespace PhaseArchitecture
             Screen.sleepTimeout = SleepTimeout.NeverSleep;
 
             Application.targetFrameRate = 60;
+
+            await ResourceManager.Instance.Initialize();
         }
 
         protected override void OnEnter(EPhaseType prevPhaseType)
