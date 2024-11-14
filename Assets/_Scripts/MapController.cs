@@ -10,6 +10,7 @@ public enum MapType
 
 public class MapController : MonoSingleton<MapController>
 {
+    [SerializeField] private float moveSpeed = 5;
     [SerializeField] private int mapCount = 20;
     [SerializeField] private Transform mapParent;
     [SerializeField] private float mapGapValue = 18;
@@ -18,6 +19,8 @@ public class MapController : MonoSingleton<MapController>
 
     public void Initialize()
     {
+        enabled = false;
+        transform.position = Vector3.zero;
         ClearMap();
         Generate();
     }
@@ -50,5 +53,20 @@ public class MapController : MonoSingleton<MapController>
     {
         _maps?.ForEach(x => x.Restore());
         _maps?.Clear();
+    }
+
+    private void Update()
+    {
+        transform.position += Mathf.Abs(moveSpeed) * Time.deltaTime * Vector3.left;
+    }
+
+    public void StartMove()
+    {
+        enabled = true;
+    }
+
+    public void EndMove()
+    {
+        enabled = false;
     }
 }

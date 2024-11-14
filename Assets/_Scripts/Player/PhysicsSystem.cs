@@ -42,7 +42,7 @@ namespace PlayerSystem
             return RayCast(_rigid2D.position + new Vector2(_boxCol.size.x, 0), Vector2.right);
         }
 
-        public void CustomUpdate()
+        public void CustomFixedUpdate()
         {
             if (IsGround())
             {

@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
             (boxCollider2D, nameof(boxCollider2D)),
             (rigid2D, nameof(rigid2D)));
 
-        rigid2D.position = startPosition;
+        transform.position = rigid2D.position = startPosition;
 
         _animatorSystem = new(animator);
         moveSystem.Initialize(
@@ -45,12 +45,12 @@ public class PlayerController : MonoBehaviour
         return physicsSystem.IsGround();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (PhaseManager.CurrentPhaseType != EPhaseType.Stage) return;
 
-        moveSystem.CustomUpdate();
-        physicsSystem.CustomUpdate();
+        moveSystem.CustomFixedUpdate();
+        physicsSystem.CustomFixedUpdate();
     }
 
     public void OnLeaveStage()

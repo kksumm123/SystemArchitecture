@@ -31,7 +31,7 @@ namespace PlayerSystem
             _offsetX = _camTr.position.x - _rigid2D.position.x;
         }
 
-        public void CustomUpdate()
+        public void CustomFixedUpdate()
         {
             if (_camTr == null || !_isMovable.Invoke())
             {
@@ -39,9 +39,12 @@ namespace PlayerSystem
                 return;
             }
 
+            _setMoveFactor.Invoke(1);
+
             var moveFactor = _camTr.position.x - _rigid2D.position.x - _offsetX;
-            _setMoveFactor.Invoke(moveFactor);
-            _rigid2D.MovePosition(moveFactor * moveSpeed * Time.deltaTime * Vector2.right);
+            _rigid2D.MovePosition(
+                _rigid2D.position
+                + moveFactor * moveSpeed * Time.deltaTime * Vector2.right);
         }
     }
 }
