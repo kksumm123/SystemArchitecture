@@ -1,6 +1,5 @@
 namespace PhaseArchitecture
 {
-    using Cysharp.Threading.Tasks;
     using UnityEngine;
 
     public class PhaseStage : PhaseBase
@@ -18,11 +17,13 @@ namespace PhaseArchitecture
             }
 
             _player.Initialize();
+            MapController.Instance.Initialize();
         }
 
         protected override void OnLeave(EPhaseType nextPhaseType)
         {
             _player.OnLeaveStage();
+            MapController.Instance.ClearMap();
         }
     }
 }

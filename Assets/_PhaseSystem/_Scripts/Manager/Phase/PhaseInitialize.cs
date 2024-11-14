@@ -12,6 +12,7 @@ namespace PhaseArchitecture
             Application.targetFrameRate = 60;
 
             await ResourceManager.Instance.Initialize();
+            await FactoryManager.Instance.Initialize();
         }
 
         protected override void OnEnter(EPhaseType prevPhaseType)

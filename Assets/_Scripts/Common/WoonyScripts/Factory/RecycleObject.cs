@@ -2,7 +2,7 @@
 using System.Threading;
 using UnityEngine;
 
-public abstract partial class RecycleObject : MonoBehaviour
+public partial class RecycleObject : MonoBehaviour
 {
     public int PoolSize => poolSize;
 
