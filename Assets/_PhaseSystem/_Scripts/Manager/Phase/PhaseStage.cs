@@ -4,30 +4,21 @@ namespace PhaseArchitecture
 
     public class PhaseStage : PhaseBase
     {
+        private PlayerController _player;
+
         protected override void OnInit()
         {
-            enabled = false;
+            _player = ResourceManager.Instance.Player.GetItem("Player");
         }
 
         protected override void OnEnter(EPhaseType prevPhaseType)
         {
-            Process().Forget();
-        }
-
-        private async UniTask Process()
-        {
-            enabled = true;
-            // ResourceHandler.Battle.Init();
-            // UIManager.Instance.OpenUI<MainHudUI>(EUI.MainHudUI, EUIParentPanel.MainRoot);
-            // // todo: stageUI 만들고 나면, 유저가 선택한 월드 / 스테이지 정보 넣어줘야 함.
-            // CCDebug.LogError("stageUI 만들고 나면, 유저가 선택한 월드 / 스테이지 정보 넣어줘야 함.");
-            // await ResourceHandler.Battle.ChangeStage(1, 1, 1); 
+            _player.Initialize();
         }
 
         protected override void OnLeave(EPhaseType nextPhaseType)
         {
-            // UIManager.Instance.CleanUp();
-            // ResourceHandler.Battle.CleanUp();
+            _player.OnLeaveStage();
         }
     }
 }
