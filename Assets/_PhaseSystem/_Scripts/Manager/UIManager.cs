@@ -6,11 +6,12 @@ namespace PhaseArchitecture
 
     public enum UIParentType
     {
-        Main, Popup
+        Under, Main, Popup
     }
 
     public class UIManager : MonoSingleton<UIManager>
     {
+        [SerializeField] private Transform UnderRoot;
         [SerializeField] private Transform MainRoot;
         [SerializeField] private Transform PopupRoot;
 
@@ -45,6 +46,9 @@ namespace PhaseArchitecture
 
             switch (parentType)
             {
+                case UIParentType.Under:
+                    ui.transform.SetParent(UnderRoot);
+                    break;
                 case UIParentType.Main:
                     ui.transform.SetParent(MainRoot);
                     break;

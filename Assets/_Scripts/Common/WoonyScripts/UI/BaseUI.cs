@@ -25,13 +25,13 @@ public abstract class BaseUI : MonoBehaviour
 
     protected virtual void OnInitialize() { }
 
-    protected virtual void ShowUI()
+    public virtual void ShowUI()
     {
         gameObject.SetActive(true);
         transform.SetAsLastSibling();
     }
 
-    protected virtual void CloseUI()
+    public virtual void CloseUI()
     {
         gameObject.SetActive(false);
     }
