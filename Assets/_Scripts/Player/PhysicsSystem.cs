@@ -9,11 +9,13 @@ namespace PlayerSystem
         private Rigidbody2D _rigid2D;
         private BoxCollider2D _boxCol;
 
-        [SerializeField] private float gravityPower = -40;
+        [SerializeField] private float gravityPower = 5;
+        [SerializeField] private float acceleratePower = 0.25f;
 
         private float _footOffset;
         private float _isGroundRayDistance = 0.01f;
         private LayerMask _groundLayer;
+        private float _fallFactor;
 
         public void Initialize(Rigidbody2D rigid2D, BoxCollider2D boxCol)
         {
@@ -42,9 +44,14 @@ namespace PlayerSystem
 
         public void CustomUpdate()
         {
-            if (IsGround()) return;
+            if (IsGround())
+            {
+                _fallFactor = Mathf.Abs(gravityPower);
+                return;
+            }
 
-            var gravityFactor = gravityPower * Time.deltaTime * Vector2.down;
+            _fallFactor += Mathf.Abs(acceleratePower);
+            var gravityFactor = _fallFactor * Time.deltaTime * Vector2.down;
             _rigid2D.MovePosition(_rigid2D.position + gravityFactor);
         }
     }
