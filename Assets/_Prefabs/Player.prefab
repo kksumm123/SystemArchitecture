@@ -202,8 +202,12 @@ MonoBehaviour:
   animator: {fileID: 5896930516342285658}
   boxCollider2D: {fileID: 5896930517237938854}
   rigid2D: {fileID: 5896930517237938849}
+  startPosition: {x: -7.1, y: 0, z: 0}
   moveSystem:
     moveSpeed: 8
   physicsSystem:
     gravityPower: 5
-    acceleratePower: 0.25
+    acceleratePower: 0.6
+  jumpSystem:
+    maxJumpCount: 2
+    jumpPower: 17

@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     private AnimatorSystem<PlayerAniParams> _animatorSystem;
     [SerializeField] private MoveSystem moveSystem = new();
     [SerializeField] private PhysicsSystem physicsSystem = new();
+    [SerializeField] private JumpSystem jumpSystem = new();
 
     public void Initialize()
     {
@@ -30,15 +31,19 @@ public class PlayerController : MonoBehaviour
 
         transform.position = rigid2D.position = startPosition;
 
+        // Init Systems
         _animatorSystem = new(animator);
         moveSystem.Initialize(
             rigid2D,
             IsMovable,
             x => _animatorSystem.SetFloat(PlayerAniParams.MoveFactor, x));
-        physicsSystem.Initialize(rigid2D, boxCollider2D);
+        physicsSystem.Initialize(rigid2D, boxCollider2D, jumpSystem.OnGround);
+        jumpSystem.Initialize(rigid2D, physicsSystem.ClearFallFactor);
 
+        // Bind control key
         var controlPad = UIManager.Instance.GetUI<ControlPadUI>(UIParentType.Under);
         controlPad.ShowUI();
+        controlPad.AddJumpClickAction(jumpSystem.Jump);
 
         enabled = true;
     }
@@ -52,6 +57,7 @@ public class PlayerController : MonoBehaviour
     {
         if (PhaseManager.CurrentPhaseType != EPhaseType.Stage) return;
 
+        jumpSystem.CustomFixedUpdate();
         moveSystem.CustomFixedUpdate();
         physicsSystem.CustomFixedUpdate();
     }

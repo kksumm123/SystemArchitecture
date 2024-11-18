@@ -42,9 +42,7 @@ namespace PlayerSystem
             _setMoveFactor.Invoke(1);
 
             var moveFactor = _camTr.position.x - _rigid2D.position.x - _offsetX;
-            _rigid2D.MovePosition(
-                _rigid2D.position
-                + moveFactor * moveSpeed * Time.deltaTime * Vector2.right);
+            _rigid2D.position += moveFactor * moveSpeed * Time.deltaTime * Vector2.right;
         }
     }
 }
