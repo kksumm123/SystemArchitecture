@@ -1,63 +1,62 @@
 using DG.Tweening;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ScoreUI : MonoBehaviour
+public class ScoreUI : BaseUI
 {
-    public static ScoreUI Instance;
+    private readonly string HIGH_SCORE_KEY = "HighScore";
 
-    Text scoreValue;
-    Text highScoreValue;
-    int score;
-    int highScore;
-    readonly string highScoreKey = "HighScore";
-    void Awake()
+    [SerializeField] private Text scoreValue;
+    [SerializeField] private Text highScoreValue;
+
+    private int _score;
+    private int _highScore;
+
+    private int _oldScore;
+    private int _oldHighScore;
+    private float _scoreAnimationTime = 0.2f;
+    private TweenerCore<int, int, NoOptions> _scoreHandle;
+    private TweenerCore<int, int, NoOptions> _highScoreHandle;
+
+    protected override void OnInitialize()
     {
-        Instance = this;
+        _highScore = PlayerPrefs.GetInt(HIGH_SCORE_KEY);
 
-        scoreValue = transform.Find("Current/Value").GetComponent<Text>();
-        highScoreValue = transform.Find("High/Value").GetComponent<Text>();
-
-        highScore = PlayerPrefs.GetInt(highScoreKey);
-
-        scoreValue.text = score.ToString();
-        highScoreValue.text = highScore.ToString();
-    }
-    void OnDestroy()
-    {
-        PlayerPrefs.SetInt(highScoreKey, highScore);
+        scoreValue.text = _score.ToString();
+        highScoreValue.text = _highScore.ToString();
     }
 
-    int oldScore;
-    int oldHighScore;
-    float scoreAnimationTime = 0.2f;
-    TweenerCore<int, int, NoOptions> scoreHandle;
-    TweenerCore<int, int, NoOptions> highScoreHandle;
-    internal void AddScore(int value)
+    private void OnDestroy()
     {
-        oldScore = score;
-        score += value;
-        KillAndAnimaitionText(scoreHandle, oldScore, scoreValue, score, scoreAnimationTime);
+        PlayerPrefs.SetInt(HIGH_SCORE_KEY, _highScore);
+    }
 
-        if (highScore < score)
+    public void AddScore(int value)
+    {
+        _oldScore = _score;
+        _score += value;
+        KillAndAnimaitionText(ref _scoreHandle, _oldScore, scoreValue, _score, _scoreAnimationTime);
+
+        if (_highScore < _score)
         {
-            oldHighScore = highScore;
-            highScore = score;
-            KillAndAnimaitionText(highScoreHandle, oldHighScore, highScoreValue, highScore, scoreAnimationTime);
+            _oldHighScore = _highScore;
+            _highScore = _score;
+            KillAndAnimaitionText(ref _highScoreHandle, _oldHighScore, highScoreValue, _highScore, _scoreAnimationTime);
         }
-    }
 
-    void KillAndAnimaitionText(TweenerCore<int, int, NoOptions> handle
-        , int getter, Text text, int endValue, float duration)
-    {
-        if (handle != null)
-            handle.Kill();
-        handle = DOTween.To(() => getter, x => text.text = x.ToString(), endValue, duration)
-            .SetUpdate(true).SetLink(gameObject);
+        void KillAndAnimaitionText(ref TweenerCore<int, int, NoOptions> handle, int getter, Text text, int endValue, float duration)
+        {
+            if (handle.IsTweenActive()) handle.Kill();
+
+            handle = DOTween.To(
+                    () => getter,
+                    x => text.text = x.ToString(),
+                    endValue,
+                    duration)
+                .SetUpdate(true)
+                .SetLink(gameObject);
+        }
     }
 }

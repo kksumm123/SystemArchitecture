@@ -37,6 +37,9 @@ public class PlayerController : MonoBehaviour
             x => _animatorSystem.SetFloat(PlayerAniParams.MoveFactor, x));
         physicsSystem.Initialize(rigid2D, boxCollider2D);
 
+        var controlPad = UIManager.Instance.GetUI<ControlPadUI>(UIParentType.Under);
+        controlPad.ShowUI();
+
         enabled = true;
     }
 

@@ -1,39 +1,47 @@
-using DG.Tweening;
 using System;
-using System.Collections;
-using System.Collections.Generic;
+using System.Threading;
+using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ReadyUI : MonoBehaviour
+public class ReadyUI : BaseUI
 {
-    public static ReadyUI Instance;
+    [SerializeField] private CanvasGroup canvasGroup;
+    [SerializeField] private Text readyText;
 
-    CanvasGroup canvasGroup;
-    Text readyText;
-    void Awake()
+    private Tween _handle;
+
+    protected override void OnInitialize()
     {
-        Instance = this;
-
-        canvasGroup = GetComponent<CanvasGroup>();
-        readyText = GetComponentInChildren<Text>();
+        Woony.Asserts(this,
+            (canvasGroup, nameof(canvasGroup)),
+            (readyText, nameof(readyText)));
     }
 
-    internal void SetReady(int readyTime)
+    public void SetReady(int readyTime, CancellationToken token)
     {
-        StartCoroutine(ReadyCo(readyTime));
+        Ready(readyTime, token).Forget();
     }
 
-    IEnumerator ReadyCo(int readyTime)
+    private async UniTask Ready(int readyTime, CancellationToken token)
     {
         for (int i = readyTime; i > 0; i--)
         {
             readyText.text = i.ToString();
-            yield return new WaitForSeconds(1);
+            await UniTask.Delay(TimeSpan.FromSeconds(1), cancellationToken: token);
         }
+
         readyText.text = "G O ! ! !";
 
-        DOTween.To(() => 1, x => canvasGroup.alpha = x, 0, 1)
-            .SetUpdate(true).SetLink(gameObject);
+        _handle = DOTween.To(() => 1, x => canvasGroup.alpha = x, 0, 1)
+            .SetUpdate(true)
+            .SetLink(gameObject);
+    }
+
+    public void ForceStop()
+    {
+        if (_handle.IsTweenActive()) _handle.Kill();
+        canvasGroup.alpha = 0;
     }
 }

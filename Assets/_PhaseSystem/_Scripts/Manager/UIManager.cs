@@ -59,6 +59,8 @@ namespace PhaseArchitecture
                     Debug.LogError($"예외처리 필요. Type = {parentType}");
                     break;
             }
+
+            ui.transform.localPosition = Vector3.zero;
         }
     }
 }

@@ -44,7 +44,7 @@ public class MapController : MonoSingleton<MapController>
             if (newMap == null) return;
 
             newMap.transform.SetParent(mapParent);
-            newMap.transform.position = new Vector3(i * mapGapValue, 0);
+            newMap.transform.localPosition = new Vector3(i * mapGapValue, 0);
             _maps.Add(newMap);
         }
     }
@@ -65,7 +65,7 @@ public class MapController : MonoSingleton<MapController>
         enabled = true;
     }
 
-    public void EndMove()
+    public void StopMove()
     {
         enabled = false;
     }

@@ -45,6 +45,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d53ef634da0edae48b0035d335ed7de7, type: 2}
   - {fileID: 11400000, guid: e052958814d5c23499109501a6b347c6, type: 2}
   - {fileID: 11400000, guid: 8ca786854f8a1cb4a9cf29a4ce6ab928, type: 2}
+  - {fileID: 11400000, guid: 2c1b7b8ba2bebf04f928c2f4a9f9eaf9, type: 2}
   m_BuildSettings:
     m_CompileScriptsInVirtualMode: 0
     m_CleanupStreamingAssetsAfterBuilds: 1
@@ -88,6 +89,7 @@ MonoBehaviour:
     - default
     - Player
     - Map
+    - UI
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: a873a7268af46594099e83a7bcffdfce, type: 2}

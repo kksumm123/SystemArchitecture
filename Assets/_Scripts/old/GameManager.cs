@@ -58,7 +58,6 @@ public class GameManager : MonoBehaviour
     IEnumerator Start()
     {
         GameState = GameStateType.Ready;
-        ReadyUI.Instance.SetReady(readyTime);
         yield return new WaitForSeconds(readyTime);
         GameState = GameStateType.Playing;
     }
@@ -104,6 +103,6 @@ public class GameManager : MonoBehaviour
 
     public void AddScore(int value)
     {
-        ScoreUI.Instance.AddScore(value);
+        //ScoreUI.Instance.AddScore(value);
     }
 }

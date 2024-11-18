@@ -1,19 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class CoinSFXPlayer : MonoBehaviour
+public class CoinSFXPlayer : MonoSingleton<CoinSFXPlayer>
 {
-    public static CoinSFXPlayer Instance;
-    void Awake() => Instance = this;
+    private AudioSource _audioSource;
 
-    AudioSource audioSource;
-    void Start()
+    private void Start()
     {
-        audioSource = GetComponent<AudioSource>();
+        _audioSource = GetComponent<AudioSource>();
     }
+
     public void PlaySound()
     {
-        audioSource.Play();
+        _audioSource.Play();
     }
 }
