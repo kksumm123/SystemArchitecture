@@ -11,7 +11,7 @@ namespace PhaseArchitecture
 
         public void AddScore(int value)
         {
-             UIManager.Instance.GetUI<ScoreUI>(UIParentType.Main)?.AddScore(value);
+             UIManager.Instance.GenerateUI<ScoreUI>(UIParentType.Main)?.AddScore(value);
         }
     }
 }

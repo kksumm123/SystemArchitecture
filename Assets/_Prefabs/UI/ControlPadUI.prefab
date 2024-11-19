@@ -30,8 +30,8 @@ RectTransform:
   m_Children:
   - {fileID: 8476105216820041392}
   - {fileID: 8476105217546029035}
-  - {fileID: 8476105215767793240}
   - {fileID: 8476105216996769333}
+  - {fileID: 8476105215767793240}
   m_Father: {fileID: 8476105216739376894}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -144,9 +144,8 @@ GameObject:
   - component: {fileID: 8476105215767793223}
   - component: {fileID: 8476105215767793222}
   - component: {fileID: 8476105215767793241}
-  - component: {fileID: 8476105215767793220}
   m_Layer: 5
-  m_Name: AbilityButton
+  m_Name: MagneticAbilityButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -166,7 +165,7 @@ RectTransform:
   m_Children:
   - {fileID: 8476105216855408597}
   m_Father: {fileID: 6018584173453205181}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -255,21 +254,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &8476105215767793220
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8476105215767793243}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c862ffe51135374099622f52ae5ebea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilityType: 1
-  coolTime: 15
-  duration: 6
 --- !u!1 &8476105216014333872
 GameObject:
   m_ObjectHideFlags: 0
@@ -434,8 +418,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpButton: {fileID: 8476105216820041393}
   downButton: {fileID: 8476105217546029032}
-  dashButton: {fileID: 8476105215767793241}
-  magnetButton: {fileID: 8476105216996769331}
+  dashButton: {fileID: 8476105216996769331}
+  magnetButton: {fileID: 8476105215767793241}
 --- !u!1 &8476105216820041395
 GameObject:
   m_ObjectHideFlags: 0
@@ -646,9 +630,8 @@ GameObject:
   - component: {fileID: 8476105216996769329}
   - component: {fileID: 8476105216996769328}
   - component: {fileID: 8476105216996769331}
-  - component: {fileID: 8476105216996769330}
   m_Layer: 5
-  m_Name: AbilityButton (1)
+  m_Name: DashAbilityButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -668,7 +651,7 @@ RectTransform:
   m_Children:
   - {fileID: 8476105215728141845}
   m_Father: {fileID: 6018584173453205181}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -757,21 +740,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &8476105216996769330
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8476105216996769332}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c862ffe51135374099622f52ae5ebea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilityType: 2
-  coolTime: 10
-  duration: 3
 --- !u!1 &8476105217522115612
 GameObject:
   m_ObjectHideFlags: 0

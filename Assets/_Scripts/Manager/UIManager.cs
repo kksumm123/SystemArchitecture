@@ -18,7 +18,7 @@ namespace PhaseArchitecture
         private Dictionary<Type, string> _stringKeys = new();
         private Dictionary<string, BaseUI> _uis = new();
 
-        public T GetUI<T>(UIParentType parentType) where T : BaseUI
+        public T GenerateUI<T>(UIParentType parentType) where T : BaseUI
         {
             var uiType = typeof(T);
             if (!_stringKeys.ContainsKey(uiType))
@@ -34,6 +34,17 @@ namespace PhaseArchitecture
             var ui = _uis[_stringKeys[uiType]];
             SetParent(ui, parentType);
             return ui as T;
+        }
+
+        public T GetUI<T>() where T : BaseUI
+        {
+            var uiType = typeof(T);
+            if (!_stringKeys.ContainsKey(uiType))
+            {
+                return GenerateUI<T>(UIParentType.Main);
+            }
+
+            return _uis[_stringKeys[uiType]] as T;
         }
 
         private void SetParent(BaseUI ui, UIParentType parentType)

@@ -31,7 +31,7 @@ namespace PhaseArchitecture
             _player.Initialize();
             MapController.Instance.Initialize();
 
-            var readyUI = UIManager.Instance.GetUI<ReadyUI>(UIParentType.Popup);
+            var readyUI = UIManager.Instance.GenerateUI<ReadyUI>(UIParentType.Popup);
             readyUI.SetReady(3, token);
             await UniTask.Delay(TimeSpan.FromSeconds(3), cancellationToken: token);
 
@@ -44,7 +44,7 @@ namespace PhaseArchitecture
             MapController.Instance.ClearMap();
 
             _cancellationTokenSource.SafeCancelTask();
-            UIManager.Instance.GetUI<ReadyUI>(UIParentType.Popup)
+            UIManager.Instance.GenerateUI<ReadyUI>(UIParentType.Popup)
                 .ForceStop();
             MapController.Instance.StopMove();
         }

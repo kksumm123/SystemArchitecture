@@ -15,6 +15,8 @@ public class MapController : MonoSingleton<MapController>
     [SerializeField] private Transform mapParent;
     [SerializeField] private float mapGapValue = 18;
 
+    private float _dashSpeed;
+
     private List<RecycleObject> _maps = new();
 
     public void Initialize()
@@ -57,7 +59,8 @@ public class MapController : MonoSingleton<MapController>
 
     private void Update()
     {
-        transform.position += Mathf.Abs(moveSpeed) * Time.deltaTime * Vector3.left;
+        var speed = Mathf.Abs(moveSpeed) + _dashSpeed;
+        transform.position += speed * Time.deltaTime * Vector3.left;
     }
 
     public void StartMove()
@@ -68,5 +71,15 @@ public class MapController : MonoSingleton<MapController>
     public void StopMove()
     {
         enabled = false;
+    }
+
+    public void OnExecuteDash(float dashSpeed)
+    {
+        _dashSpeed += dashSpeed;
+    }
+
+    public void OnEndDash(float dashSpeed)
+    {
+        _dashSpeed -= dashSpeed;
     }
 }

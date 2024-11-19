@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private MoveSystem moveSystem = new();
     [SerializeField] private PhysicsSystem physicsSystem = new();
     [SerializeField] private JumpSystem jumpSystem = new();
+    private AbilitySystem _abilitySystem = new();
 
     public void Initialize()
     {
@@ -53,9 +54,10 @@ public class PlayerController : MonoBehaviour
                 physicsSystem.ClearFallFactor();
                 _animatorSystem.SetTrigger(PlayerAniParams.Jump);
             });
+        _abilitySystem.Initialize(transform, rigid2D);
 
         // Bind control key
-        var controlPad = UIManager.Instance.GetUI<ControlPadUI>(UIParentType.Under);
+        var controlPad = UIManager.Instance.GenerateUI<ControlPadUI>(UIParentType.Under);
         controlPad.ShowUI();
         controlPad.AddJumpClickAction(jumpSystem.Jump);
 
