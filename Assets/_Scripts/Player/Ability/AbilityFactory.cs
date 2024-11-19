@@ -21,6 +21,9 @@ public static class AbilityFactory
             case AbilityType.Dash:
                 abilityParams = new AbilityParams(owner, ownerRigid, GetSO()?.DashData);
                 return new DashAbility(abilityParams);
+            case AbilityType.Magnetic:
+                abilityParams = new AbilityParams(owner, ownerRigid, GetSO()?.MagneticData);
+                return new MagnetAbility(abilityParams);
             default:
                 Debug.LogError($"예외처리 필요. type = {type}");
                 abilityParams = new AbilityParams(owner, ownerRigid, null);

@@ -17,3 +17,9 @@ MonoBehaviour:
     cooldownTime: 5
     values:
     - 5
+  MagneticData:
+    duration: 1.5
+    cooldownTime: 10
+    values:
+    - 3
+    - 1

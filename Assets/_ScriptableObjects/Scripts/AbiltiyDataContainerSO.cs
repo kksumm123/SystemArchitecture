@@ -13,4 +13,5 @@ public class AbilityData
 public class AbiltiyDataContainerSO : ScriptableObject
 {
     public AbilityData DashData;
+    public AbilityData MagneticData;
 }
