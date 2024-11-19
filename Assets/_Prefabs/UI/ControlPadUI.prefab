@@ -144,6 +144,7 @@ GameObject:
   - component: {fileID: 8476105215767793223}
   - component: {fileID: 8476105215767793222}
   - component: {fileID: 8476105215767793241}
+  - component: {fileID: 5393513262345227283}
   m_Layer: 5
   m_Name: MagneticAbilityButton
   m_TagString: Untagged
@@ -254,6 +255,20 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &5393513262345227283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8476105215767793243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55c20be7b3d2e7b4e91f5c5d92fad0f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldownIcon: {fileID: 8476105215767793222}
+  button: {fileID: 8476105215767793241}
 --- !u!1 &8476105216014333872
 GameObject:
   m_ObjectHideFlags: 0
@@ -418,8 +433,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpButton: {fileID: 8476105216820041393}
   downButton: {fileID: 8476105217546029032}
-  dashButton: {fileID: 8476105216996769331}
-  magnetButton: {fileID: 8476105215767793241}
+  dashButton: {fileID: 3257178267055085840}
+  magnetButton: {fileID: 5393513262345227283}
 --- !u!1 &8476105216820041395
 GameObject:
   m_ObjectHideFlags: 0
@@ -629,7 +644,8 @@ GameObject:
   - component: {fileID: 8476105216996769333}
   - component: {fileID: 8476105216996769329}
   - component: {fileID: 8476105216996769328}
-  - component: {fileID: 8476105216996769331}
+  - component: {fileID: 3257178267055085840}
+  - component: {fileID: 4473632104444179236}
   m_Layer: 5
   m_Name: DashAbilityButton
   m_TagString: Untagged
@@ -696,7 +712,21 @@ MonoBehaviour:
   m_FillOrigin: 2
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &8476105216996769331
+--- !u!114 &3257178267055085840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8476105216996769332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55c20be7b3d2e7b4e91f5c5d92fad0f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldownIcon: {fileID: 8476105216996769328}
+  button: {fileID: 4473632104444179236}
+--- !u!114 &4473632104444179236
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

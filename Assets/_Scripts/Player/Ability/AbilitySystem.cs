@@ -20,7 +20,7 @@ namespace PlayerSystem
 
             // bind 
             var controlPad = UIManager.Instance.GetUI<ControlPadUI>();
-            controlPad.AddDashClickAction(_abilities[AbilityType.Dash].Execute);
+            controlPad.AddDashClickAction(_abilities[AbilityType.Dash].Execute, _abilities[AbilityType.Dash].CooldownTime);
         }
 
         private void GenerateAbility()

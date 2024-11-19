@@ -21,6 +21,8 @@ namespace PlayerSystem
 
     public abstract class AbilityBase
     {
+        public float CooldownTime => AbilityParams.AbilityData.cooldownTime;
+
         protected AbilityParams AbilityParams { get; private set; }
 
         private CancellationTokenSource _cancellationTokenSource;

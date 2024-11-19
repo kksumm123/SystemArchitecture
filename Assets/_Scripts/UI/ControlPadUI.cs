@@ -7,8 +7,8 @@ public class ControlPadUI : BaseUI
     [SerializeField] private Button jumpButton;
     [SerializeField] private Button downButton;
 
-    [Header("어빌리티"), SerializeField] private Button dashButton;
-    [SerializeField] private Button magnetButton;
+    [Header("어빌리티"), SerializeField] private AbiltyButton dashButton;
+    [SerializeField] private AbiltyButton magnetButton;
 
     protected override void OnInitialize()
     {
@@ -29,13 +29,13 @@ public class ControlPadUI : BaseUI
         downButton?.onClick.AddListener(action);
     }
 
-    public void AddDashClickAction(UnityAction action)
+    public void AddDashClickAction(UnityAction action, float cooldown)
     {
-        dashButton?.onClick.AddListener(action);
+        dashButton?.AddAbilityAction(action, cooldown);
     }
 
-    public void AddMagnetClickAction(UnityAction action)
+    public void AddMagnetClickAction(UnityAction action, float cooldown)
     {
-        magnetButton?.onClick.AddListener(action);
+        magnetButton?.AddAbilityAction(action, cooldown);
     }
 }
