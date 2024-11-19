@@ -6,7 +6,7 @@ enum PlayerAniParams
 {
     None,
     MoveFactor,
-    Jump, Fall,
+    Jump, Fall, OnHitGround,
 }
 
 public class PlayerController : MonoBehaviour
@@ -37,8 +37,22 @@ public class PlayerController : MonoBehaviour
             rigid2D,
             IsMovable,
             x => _animatorSystem.SetFloat(PlayerAniParams.MoveFactor, x));
-        physicsSystem.Initialize(rigid2D, boxCollider2D, jumpSystem.OnGround);
-        jumpSystem.Initialize(rigid2D, physicsSystem.ClearFallFactor);
+        physicsSystem.Initialize(
+            rigid2D,
+            boxCollider2D,
+            () =>
+            {
+                jumpSystem.OnGround();
+                _animatorSystem.SetTrigger(PlayerAniParams.OnHitGround);
+            },
+            () => _animatorSystem.SetTrigger(PlayerAniParams.Fall));
+        jumpSystem.Initialize(
+            rigid2D,
+            () =>
+            {
+                physicsSystem.ClearFallFactor();
+                _animatorSystem.SetTrigger(PlayerAniParams.Jump);
+            });
 
         // Bind control key
         var controlPad = UIManager.Instance.GetUI<ControlPadUI>(UIParentType.Under);
@@ -57,9 +71,8 @@ public class PlayerController : MonoBehaviour
     {
         if (PhaseManager.CurrentPhaseType != EPhaseType.Stage) return;
 
-        jumpSystem.CustomFixedUpdate();
         moveSystem.CustomFixedUpdate();
-        physicsSystem.CustomFixedUpdate();
+        physicsSystem.CustomFixedUpdate(jumpSystem.IsJumpEnd);
     }
 
     public void OnLeaveStage()

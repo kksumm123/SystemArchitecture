@@ -9,6 +9,7 @@ namespace PlayerSystem
         private Rigidbody2D _rigid2D;
         private BoxCollider2D _boxCol;
         private Action _onHitGround;
+        private Action _playFallAnimation;
 
         [SerializeField] private float gravityPower = 5;
         [SerializeField] private float acceleratePower = 0.25f;
@@ -19,11 +20,12 @@ namespace PlayerSystem
         private float _fallFactor;
         private bool _isFalling;
 
-        public void Initialize(Rigidbody2D rigid2D, BoxCollider2D boxCol, Action onHitGround)
+        public void Initialize(Rigidbody2D rigid2D, BoxCollider2D boxCol, Action onHitGround, Action playFallAnimation)
         {
             _rigid2D = rigid2D;
             _boxCol = boxCol;
             _onHitGround = onHitGround;
+            _playFallAnimation = playFallAnimation;
 
             _footOffset = boxCol.size.y * 0.5f - boxCol.offset.y;
             _groundLayer = 1 << LayerMask.NameToLayer("Ground");
@@ -50,7 +52,7 @@ namespace PlayerSystem
             _fallFactor = Mathf.Abs(gravityPower);
         }
 
-        public void CustomFixedUpdate()
+        public void CustomFixedUpdate(bool isJumpEnd)
         {
             if (IsGround())
             {
@@ -62,6 +64,13 @@ namespace PlayerSystem
 
                 ClearFallFactor();
                 return;
+            }
+
+            if (!isJumpEnd) return;
+
+            if (!_isFalling)
+            {
+                _playFallAnimation?.Invoke();
             }
 
             _isFalling = true;

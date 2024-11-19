@@ -1,19 +1,24 @@
 namespace PlayerSystem
 {
     using System;
+    using DG.Tweening;
     using UnityEngine;
 
     [Serializable]
     public class JumpSystem
     {
+        public bool IsJumpEnd => !_handle?.IsTweenActive() ?? true;
+
         private Rigidbody2D _rigid2D;
         private Action _onJump;
 
         [SerializeField] private int maxJumpCount = 2;
         [SerializeField] private float jumpPower = 3;
+        [SerializeField] private Woony.CustomEase jumpEase = new(0.3f);
 
         private int _curJumpCount;
-        private bool _isJumping;
+        private Vector2 _orderPos;
+        private Tween _handle;
 
         public void Initialize(Rigidbody2D rigidbody2D, Action onJump)
         {
@@ -25,23 +30,24 @@ namespace PlayerSystem
         {
             if (_curJumpCount >= maxJumpCount) return;
 
-            _isJumping = true;
             _curJumpCount++;
             _onJump?.Invoke();
+
+            if (_handle.IsTweenActive()) _handle.Kill();
+            _orderPos = _rigid2D.position;
+            _handle = DOTween.To(
+                    () => 0,
+                    x => _rigid2D.position = _orderPos + x * Vector2.up,
+                    jumpPower,
+                    jumpEase.duration)
+                .SetEase(jumpEase.customEase)
+                .SetUpdate(UpdateType.Fixed);
         }
 
         public void OnGround()
         {
-            _isJumping = false;
             _curJumpCount = 0;
-        }
-
-        public void CustomFixedUpdate()
-        {
-            if (!_isJumping) return;
-
-            var factor = jumpPower * Time.deltaTime * Vector2.up;
-            _rigid2D.position += factor;
+            _handle?.Kill();
         }
     }
 }
